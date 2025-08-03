@@ -1,0 +1,33 @@
+# Ignore Visual Studio Code settings folder
+.vscode/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore environment folders (common for conda or venv)
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+
+# Ignore node_modules (if you use Node)
+node_modules/
+
+# Ignore compiled files
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Ignore Docker generated files
+docker-compose.override.yml
