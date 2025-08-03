@@ -1,0 +1,21 @@
+name: Shrek Quote Reminder
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:  # 👈 allows manual trigger from GitHub UI
+
+jobs:
+  print_quote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      - name: Pick and print a random Shrek quote
+        run: |
+          mapfile -t quotes < <(cat shrekquote*.txt)
+          count=${#quotes[@]}
+          random_index=$((RANDOM % count))
+          echo "💚 ${quotes[$random_index]} 💚"
