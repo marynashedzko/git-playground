@@ -1,23 +1,41 @@
 name: Shrek Quote Reminder
 
 on:
-  push:
-    branches:
-      - dev
-  workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      language:
+        description: 'Choose quote language (en or ru)'
+        required: false
+        default: 'random'
 
 jobs:
   print_quote:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout repo with submodules
         uses: actions/checkout@v3
         with:
-          submodules: true 
+          submodules: true
 
       - name: Pick and print a random Shrek quote
         run: |
-          mapfile -t quotes < <(cat shrek-quotes/*.txt)
+          # Determine language
+          LANG="${{ github.event.inputs.language }}"
+
+          # If 'random', pick either 'en' or 'ru'
+          if [ "$LANG" = "random" ]; then
+            LANG=$([ $((RANDOM % 2)) -eq 0 ] && echo "en" || echo "ru")
+          fi
+
+          # Select files based on language
+          if [ "$LANG" = "ru" ]; then
+            FILES="shrek-quotes-ru/*.txt"
+          else
+            FILES="shrek-quotes/*.txt"
+          fi
+
+          # Read quotes and pick one at random
+          mapfile -t quotes < <(cat $FILES)
           count=${#quotes[@]}
           random_index=$((RANDOM % count))
           echo "💚 ${quotes[$random_index]} 💚"
