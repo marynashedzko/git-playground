@@ -1,3 +1,6 @@
 [submodule "shrek-quotes"]
 	path = shrek-quotes
 	url = https://github.com/marynashedzko/git-playground-sub-1.git
+[submodule "shrek-quotes-ru"]
+	path = shrek-quotes-ru
+	url = https://github.com/marynashedzko/git-playground-sub-2.git
